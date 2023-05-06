@@ -15,17 +15,13 @@ app.use(bodyParser.urlencoded({extended:true}));
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    // setInterval( () => {
-    //     socket.emit("From-the-Server-to-the-Client");
-    // } , 2000)
-
-    socket.on('from_client', () => {
-        console.log("event coming from client");
+    socket.on('msg_send', (data) => {
+        console.log(data);
+        io.emit('msg_rcvd', data);
+        // socket.emit('msg_rcvd', data)
+        // socket.broadcast.emit('msg_rcvd', data)
     })
 
-    setInterval(() => {
-        socket.emit('from_server');
-    }, 2000);
 
   });
 
